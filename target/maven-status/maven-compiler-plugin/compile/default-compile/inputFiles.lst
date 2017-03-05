@@ -1,0 +1,14 @@
+E:\Spring Projects\MikroAds\src\main\java\invent\ad\controllers\AdController.java
+E:\Spring Projects\MikroAds\src\main\java\invent\ad\enumerations\AdType.java
+E:\Spring Projects\MikroAds\src\main\java\invent\ad\objects\requests\AdRequest.java
+E:\Spring Projects\MikroAds\src\main\java\invent\ad\objects\responses\AdObject.java
+E:\Spring Projects\MikroAds\src\main\java\invent\ad\storedprocs\GetAdProc.java
+E:\Spring Projects\MikroAds\src\main\java\invent\ad\objects\responses\OtpResponse.java
+E:\Spring Projects\MikroAds\src\main\java\invent\ad\aspects\ControllersAspect.java
+E:\Spring Projects\MikroAds\src\main\java\invent\ad\proc\mappers\GetAdProcMapper.java
+E:\Spring Projects\MikroAds\src\main\java\invent\ad\storedprocs\ProcessOtpProc.java
+E:\Spring Projects\MikroAds\src\main\java\invent\ad\access\objects\AdDataAccess.java
+E:\Spring Projects\MikroAds\src\main\java\invent\ad\storedprocs\SaveHitProc.java
+E:\Spring Projects\MikroAds\src\main\java\invent\ad\objects\requests\OtpRequest.java
+E:\Spring Projects\MikroAds\src\main\java\invent\ad\storedprocs\AddMessageProc.java
+E:\Spring Projects\MikroAds\src\main\java\invent\ad\objects\requests\AdHitRequest.java
