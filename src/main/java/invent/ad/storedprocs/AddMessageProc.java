@@ -18,13 +18,17 @@ public class AddMessageProc extends StoredProcedure{
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	public void addMessage(String mobileNumber, String otpMessage){
+	public void addMessage(String mobileNumber, String otpMessage, String name, String birthDay, String deviceMac, String otpGenerateType){
 		super.setJdbcTemplate(jdbcTemplate);
 		setSql("QUEUE_MESSAGE");
 		declareParameter(new SqlParameter("mobileNumber", Types.VARCHAR));
 		declareParameter(new SqlParameter("otpMessage", Types.VARCHAR));
+		declareParameter(new SqlParameter("birthDay", Types.VARCHAR));
+		declareParameter(new SqlParameter("name", Types.VARCHAR));
+		declareParameter(new SqlParameter("otpGenerateType", Types.VARCHAR));
+		declareParameter(new SqlParameter("deviceMac", Types.VARCHAR));
 		compile();
-		execute(mobileNumber, otpMessage);
+		execute(mobileNumber, otpMessage, name, birthDay, deviceMac, otpGenerateType);
 	}
 	public AddMessageProc(){
 		super();

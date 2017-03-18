@@ -23,6 +23,7 @@ import invent.ad.objects.requests.AdHitRequest;
 import invent.ad.objects.requests.AdRequest;
 import invent.ad.objects.requests.OtpRequest;
 import invent.ad.objects.responses.AdObject;
+import invent.ad.objects.responses.ApiResponse;
 import invent.ad.objects.responses.OtpResponse;
 import invent.ad.storedprocs.ProcessOtpProc;
 
@@ -51,41 +52,49 @@ public class AdController {
 	}
 	
 	@RequestMapping(value="/processOtp", method=RequestMethod.POST)
-	public OtpResponse generateOtp(@Valid @RequestBody OtpRequest otpRequest, BindingResult bindingResult,HttpServletResponse response){
+	public ApiResponse generateOtp(@Valid @RequestBody OtpRequest otpRequest, BindingResult bindingResult,HttpServletResponse response){
+		ApiResponse apiResponse=new ApiResponse();
 		setCrossOrigin(response);
 		OtpResponse otpResponse=new OtpResponse();
-		if(otpRequest.getOtpOperation().equals("OTPGNRT")){
-			String resultingOtp=adAccess.proccessOtp(otpRequest, otpRequest.getOtpOperation());
-			String otpToSend="";
-			if(resultingOtp==null){
-				String secret = Base32.random();
-				Totp totp = new Totp(secret);
-				otpToSend=totp.now();
-				otpResponse.setOtp(otpToSend);
-				otpResponse.setOtpStatus("GENERATED");
-				adAccess.queueSmsMessage(otpRequest.getMobileNumber(), otpToSend);
-			}else{
-				otpResponse.setOtp(resultingOtp);
-				otpResponse.setOtpStatus("PRE-GENERATED");
-				adAccess.queueSmsMessage(otpRequest.getMobileNumber(), resultingOtp);
+		try{
+			if(otpRequest.getOtpOperation().equals("OTPGNRT")){
+				String resultingOtp=adAccess.proccessOtp(otpRequest, otpRequest.getOtpOperation());
+				String otpToSend="";
+				if(resultingOtp==null){
+					String secret = Base32.random();
+					Totp totp = new Totp(secret);
+					otpToSend=totp.now();
+					otpResponse.setOtp(otpToSend);
+					otpResponse.setOtpStatus("GENERATED");
+					adAccess.queueSmsMessage(otpRequest.getMobileNumber(), otpToSend, otpRequest.getName(), otpRequest.getBirthDay(), otpRequest.getDeviceMac(), "GNRT");
+				}else{
+					otpResponse.setOtp(resultingOtp);
+					otpResponse.setOtpStatus("PRE-GENERATED");
+					adAccess.queueSmsMessage(otpRequest.getMobileNumber(), resultingOtp, "", "", "", "PRE-GNRT");
+				}
+				
+				
+			}else if(otpRequest.getOtpOperation().equals("OTPVRFY")){
+				String resultingOtp=adAccess.proccessOtp(otpRequest,otpRequest.getOtpOperation());
+				if(resultingOtp==null){
+					otpResponse.setOtp(otpRequest.getOtp());
+					otpResponse.setOtpStatus("INVALID");
+				}else{
+					otpResponse.setOtp(resultingOtp);
+					otpResponse.setOtpStatus("VALID");
+				}
 			}
-			
-			
-		}else if(otpRequest.getOtpOperation().equals("OTPVRFY")){
-			String resultingOtp=adAccess.proccessOtp(otpRequest,otpRequest.getOtpOperation());
-			if(resultingOtp==null){
-				otpResponse.setOtp(otpRequest.getOtp());
-				otpResponse.setOtpStatus("INVALID");
-			}else{
-				otpResponse.setOtp(resultingOtp);
-				otpResponse.setOtpStatus("VALID");
+			else{
+				otpResponse.setOtpStatus("INVALID OPERATION");
 			}
-		}
-		else{
-			otpResponse.setOtpStatus("INVALID OPERATION");
+		}catch(Exception e){
+			
 		}
 		
-		return otpResponse;
+		apiResponse.setStatus("OK");
+		apiResponse.setStatusCode("200");
+		apiResponse.setApiData(otpResponse);
+		return apiResponse;
 	}
 	
 	@RequestMapping(value="/**", method=RequestMethod.OPTIONS)

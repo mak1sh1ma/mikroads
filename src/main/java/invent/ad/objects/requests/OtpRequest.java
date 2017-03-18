@@ -19,6 +19,14 @@ public class OtpRequest {
 		//OTPGNRT, OTPVRFY
 		private String otpOperation;
 
+		@NotEmpty
+		private String birthDay;
+		
+		@NotEmpty
+		private String name;
+		
+		private String deviceMac;
+		
 		public String getMobileNumber() {
 			return mobileNumber;
 		}
@@ -41,6 +49,30 @@ public class OtpRequest {
 
 		public void setOtpOperation(String otpOperation) {
 			this.otpOperation = otpOperation;
+		}
+
+		public String getBirthDay() {
+			return birthDay;
+		}
+
+		public void setBirthDay(String birthDay) {
+			this.birthDay = birthDay;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getDeviceMac() {
+			return deviceMac;
+		}
+
+		public void setDeviceMac(String deviceMac) {
+			this.deviceMac = deviceMac;
 		}
 		
 }

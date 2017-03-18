@@ -46,10 +46,10 @@ public class AdDataAccess {
 		return otpProc.processOtp(otpRequest,otpOperation);
 	}
 	
-	public void queueSmsMessage(String mobileNumber, String otpMessage){
+	public void queueSmsMessage(String mobileNumber, String otpMessage, String name, String birthDay,  String deviceMac, String otpGenerateType){
 		AddMessageProc addMessageProc=new AddMessageProc();
 		addMessageProc.setJdbcTemplate(jdbcTemplate);
-		addMessageProc.addMessage(mobileNumber, otpMessage);
+		addMessageProc.addMessage(mobileNumber, otpMessage, name, birthDay, deviceMac, otpGenerateType);
 	}
 	
 
