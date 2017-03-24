@@ -1,5 +1,5 @@
 package invent.ad.controllers;
 
-public class SampleController {
+public class SampleControllerNew {
 
 }
