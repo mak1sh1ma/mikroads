@@ -40,7 +40,7 @@ public class AdDataAccess {
 		
 	}
 	
-	public String proccessOtp(OtpRequest otpRequest, String otpOperation){
+	public String proccessOtp(OtpRequest otpRequest, String otpOperation) throws Exception{
 		ProcessOtpProc otpProc=new ProcessOtpProc();
 		otpProc.setJdbcTemplate(jdbcTemplate);
 		return otpProc.processOtp(otpRequest,otpOperation);

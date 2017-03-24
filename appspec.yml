@@ -1,0 +1,9 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ubuntu/mikroad_files
+hooks:
+  AfterInstall:
+    - location: packageWar.sh
+      timeout: 300

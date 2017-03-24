@@ -1,6 +1,6 @@
 invent\ad\storedprocs\ProcessOtpProc.class
-invent\ad\access\objects\AdDataAccess.class
 invent\ad\storedprocs\GetAdProc.class
+invent\ad\access\objects\AdDataAccess.class
 invent\ad\controllers\AdController.class
 invent\ad\objects\requests\OtpRequest.class
 invent\ad\proc\mappers\GetAdProcMapper.class
@@ -11,4 +11,5 @@ invent\ad\objects\requests\AdHitRequest.class
 invent\ad\storedprocs\SaveHitProc.class
 invent\ad\objects\responses\AdObject.class
 invent\ad\storedprocs\AddMessageProc.class
+invent\ad\objects\responses\ApiResponse.class
 invent\ad\objects\responses\OtpResponse.class

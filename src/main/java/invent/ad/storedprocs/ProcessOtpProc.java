@@ -27,7 +27,7 @@ JdbcTemplate jdbcTemplate;
 		super();
 	}
 	
-	public String processOtp(OtpRequest otpRequest, String otpOperation){
+	public String processOtp(OtpRequest otpRequest, String otpOperation) throws Exception{
 		super.setJdbcTemplate(jdbcTemplate);
 		setSql("PROCESS_OTP");
 		declareParameter(new SqlParameter("mobileNumber", Types.VARCHAR));

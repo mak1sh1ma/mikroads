@@ -67,13 +67,14 @@ public class AdController {
 					otpResponse.setOtp(otpToSend);
 					otpResponse.setOtpStatus("GENERATED");
 					adAccess.queueSmsMessage(otpRequest.getMobileNumber(), otpToSend, otpRequest.getName(), otpRequest.getBirthDay(), otpRequest.getDeviceMac(), "GNRT");
-				}else{
+				}else if(resultingOtp.equals("NOT_ALLOWED")){
+					otpResponse.setOtpStatus("NOT ALLOWED");
+				}
+				else{
 					otpResponse.setOtp(resultingOtp);
 					otpResponse.setOtpStatus("PRE-GENERATED");
 					adAccess.queueSmsMessage(otpRequest.getMobileNumber(), resultingOtp, "", "", "", "PRE-GNRT");
 				}
-				
-				
 			}else if(otpRequest.getOtpOperation().equals("OTPVRFY")){
 				String resultingOtp=adAccess.proccessOtp(otpRequest,otpRequest.getOtpOperation());
 				if(resultingOtp==null){
@@ -87,13 +88,17 @@ public class AdController {
 			else{
 				otpResponse.setOtpStatus("INVALID OPERATION");
 			}
+			apiResponse.setStatus("OK");
+			apiResponse.setStatusCode("200");
+			apiResponse.setApiData(otpResponse);
 		}catch(Exception e){
-			
+			e.printStackTrace();
+			apiResponse.setStatus("ERROR");
+			apiResponse.setStatusCode("500");
+			apiResponse.setApiData(otpResponse);
 		}
 		
-		apiResponse.setStatus("OK");
-		apiResponse.setStatusCode("200");
-		apiResponse.setApiData(otpResponse);
+		
 		return apiResponse;
 	}
 	
