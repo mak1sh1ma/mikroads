@@ -1,3 +1,4 @@
 #!/bin/bash
+cd /home/ubuntu/mikroad_files
 mvn clean-install
-sudo mv /home/ubuntu/mikroad_files/target/MikroAds.war /var/lib/tomcat7/webapps/MikroAds.war
+sudo mv target/MikroAds.war /var/lib/tomcat7/webapps/MikroAds.war
